@@ -1,0 +1,58 @@
+﻿@model  еуые.Models.Todo
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string un = Convert.ToString(ViewBag.UserName);
+}
+
+@if (@ViewBag.Check == 0)
+{
+    <h2>Todo Action Catalog</h2>
+    <form method="get" asp-controller="TodoController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the todo info by id</label>
+            <input type="text" name="searchId" placeholder="Input todo id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else if (@ViewBag.Check == 1)
+{
+    <h2>Todo Informaton</h2>
+    <h3> The todo elemnt with this id is for user @Html.ActionLink(un, "Index", "User", new { searchId = @Model.UserId }, null) </h3>
+    <div>
+        <table border="1">
+            <tr>
+                <td align="center">Id</td>
+                <td align="center">Created at</td>
+                <td align="center">Name</td>
+                <td align="center">Status</td>
+            </tr>
+            <tr bgcolor=@ViewBag.Color>
+                <td align="center">@Model.Id</td>
+                <td align="center">@Model.CreatedAt</td>
+                <td align="center">@Model.Name</td>
+                <td align="center">@ViewBag.Status</td>
+            </tr>
+        </table>
+    </div>
+    <form method="get" asp-controller="TodoController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the todo info by id</label>
+            <input type="text" name="searchId" placeholder="Input todo id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else
+{
+    <h2>Error</h2>
+    <div>Olease enter correct data</div>
+    <form method="get" asp-controller="TodoController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the todo info by id</label>
+            <input type="text" name="searchId" placeholder="Input todo id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}

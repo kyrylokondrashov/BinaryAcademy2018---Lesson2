@@ -1,0 +1,123 @@
+﻿@model  List<еуые.Models.User>
+@{
+    ViewBag.Title = "All users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string ai = "";
+    string an = "";
+    string ui = "";
+    string un = "";
+}
+
+
+<h3>Here is all the data gathered in one place</h3>
+
+@foreach (var u in @Model)
+{
+    <div style="border:1px solid black">
+        <table border="1">
+            <tr>
+                <td align="center">Avatar</td>
+                <td align="center">Name</td>
+                <td align="center">Id</td>
+                <td align="center">Adress</td>
+                <td align="center">Count of created posts</td>
+                <td align="center">Count of todos</td>
+            </tr>
+            <tr>
+                <td align="center"><img src="@u.Avatar" alt="@u.Name" /></td>
+
+                @{
+                    ui = Convert.ToString(u.Id);
+                    un = Convert.ToString(u.Name);
+                    try
+                    {
+                        ai = Convert.ToString(u.adress.Id);
+                        an = Convert.ToString(u.adress.Country);
+                    }
+                    catch
+                    {
+                        ai = "Error";
+                        an = "Error";
+                    }
+
+                }
+                <td align="center">@u.Name</td>
+                <td align="center">@Html.ActionLink(ui, "Index", "User", new { searchId = ui }, null)</td>
+                <td align="center">@Html.ActionLink(an, "Index", "Adress", new { searchId = ai }, null)</td>
+                <td align="center">@u.posts.Count</td>
+                <td align="center">@u.todos.Count</td>
+            </tr>
+        </table>
+
+
+
+
+        <div class="accordion">
+            @{int uii = u.Id + 1;  int uiii = -1* (u.Id + 1); }
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#@uii" aria-expanded="false" aria-controls="collapseTwo">
+                            List of his posts with comments
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="@uii" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        @if (@u.posts.Count > 0)
+                        {
+                            <ul>
+                                @foreach (var p in @u.posts)
+                                {
+                                    <li>
+                                        @Html.ActionLink(p.Body, "Index", "Post", new { searchId = p.Id }, null)<ul>
+                                        @foreach (var c in p.comments)
+                                        {
+                                            <li>@Html.ActionLink(c.Body, "Index", "Comment", new { searchId = c.Id }, null)</li>
+                                        }
+                                    </ul>
+                                </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <strong>User has not created any post yet :( </strong>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#@uiii" aria-expanded="false" aria-controls="collapseTwo">
+                            List of his Todos
+                        </button>
+                    </h5>
+                </div>
+                <div id="@uiii" class="collapse" aria-labelledby="headingthree" data-parent="#accordion">
+                    <div class="card-body">
+                        @if (@u.todos.Count > 0)
+                        {
+                            <ul>
+                                @foreach (var t in u.todos)
+                                {
+                                    <li>@Html.ActionLink(t.Name, "Index", "Todo", new { searchId = t.Id }, null)</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <strong>User has not todo list yet :( </strong>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <br />
+}

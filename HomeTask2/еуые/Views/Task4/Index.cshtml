@@ -1,0 +1,41 @@
+﻿@model  List<еуые.Models.User>
+@{
+    ViewBag.Title = "Task4";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Task result</h2>
+
+
+<table border="1">
+    <tr>
+        <td>Name</td>
+        <td>Sorted Todo List</td>
+    </tr>
+    @foreach(еуые.Models.User u in Model)
+    {
+        string un = Convert.ToString(u.Name);
+        string ui = Convert.ToString(u.Id);
+        <tr>
+            <td>@Html.ActionLink(un, "Index", "User", new { searchId = ui }, null)</td>
+            <td> 
+                @if (u.todos.Count != 0)
+                {
+                <ul>
+                @foreach (еуые.Models.Todo t in u.todos)
+                {
+
+                    string ti = Convert.ToString(t.Id);
+                    <li>@Html.ActionLink(t.Name, "Index", "Todo", new { searchId = ti }, null)</li>
+                }
+                 </ul>
+                }
+                else
+                {
+                    <p>User don't have a todo list</p>
+                }
+            </td>
+        </tr>
+    }
+</table>
+

@@ -1,0 +1,117 @@
+﻿
+@model  еуые.Models.User
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string an = Convert.ToString(ViewBag.AdressName);
+    string ai = Convert.ToString(ViewBag.AdressId);
+}
+
+@if (@ViewBag.Check == 0)
+{
+    <h2>Users Catalog</h2>
+    <form method="get" asp-controller="UserController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the user info by id</label>
+            <input type="text" name="searchId" placeholder="Input user id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else if (@ViewBag.Check == 1)
+{
+    <h2>User Informaton</h2>
+    <h3> @Model.Name is the the user who have @Model.Id id. Here is some iformation about him(her) </h3>
+    <div>
+        <table border="1">
+            <tr>
+                <td align="center">Avatar</td>
+                <td align="center">Adress</td>
+                <td align="center">Count of created posts</td>
+                <td align="center">Count of todos</td>
+            </tr>
+            <tr>
+                <td align="center"><img src="@Model.Avatar" alt="@Model.Name" /></td>
+                <td align="center">@Html.ActionLink(an, "Index", "Adress", new { searchId = ai }, null)</td>
+                <td align="center">@Model.posts.Count</td>
+                <td align="center">@Model.todos.Count</td>
+            </tr>
+        </table>
+    </div>
+   <div class="accordion" >
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            List of his posts
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        @if (@Model.posts.Count > 0)
+                        {
+                            <ul>
+                                @foreach (var p in Model.posts)
+                                {
+                                    <li>@Html.ActionLink(p.Body, "Index", "Post", new { searchId = p.Id }, null)</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <strong>User has not created any post yet :( </strong>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+                            List of his Todos
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingthree" data-parent="#accordion">
+                    <div class="card-body">
+                        @if (@Model.todos.Count > 0)
+                        {
+                            <ul>
+                                @foreach (var t in Model.todos)
+                                {
+                                    <li>@Html.ActionLink(t.Name, "Index", "Todo", new { searchId = t.Id }, null)</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <strong>User has not todo list yet :( </strong>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="get" asp-controller="UserController" asp-action="Index">
+            <div>
+                <label for="searchId">Search the user info by id</label>
+                <input type="text" name="searchId" placeholder="Input user id here." title="Id need to be from 1 to 100" />
+                <input type="submit" value="Search">
+            </div>
+        </form>
+}
+else
+{
+    <h2>Error</h2>
+    <div>Olease enter correct data</div>
+    <form method="get" asp-controller="UserController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the user info by id</label>
+            <input type="text" name="searchId" placeholder="Input user id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
