@@ -1,0 +1,85 @@
+﻿@model  еуые.Models.StructureForTask6
+@{
+    ViewBag.Title = "Task6";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+
+@if (@ViewBag.Check == 0)
+{
+    <h2>Task6</h2>
+    <form method="get" asp-controller="Task6Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by post id</label>
+            <input type="text" name="searchId" placeholder="Input post id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else if (@ViewBag.Check == 1)
+{
+    <h2>Result of the task</h2>
+    string pi = Convert.ToString(@Model.Post.Id);
+    <div>Click on title to learn more about the post:  @Html.ActionLink(Model.Post.Title, "Index", "Post", new { searchId = pi }, null)</div>
+
+    <div>
+        The body of longest comment of the post is
+        @if (@Model.LongestComment != null)
+        {
+            string lcid = Convert.ToString(Model.LongestComment.Id);
+            <strong>@Html.ActionLink(Model.LongestComment.Body, "Index", "Comment", new { searchId = lcid }, null)</strong>
+        }
+        else
+        {
+            <strong>There is no such comment</strong>
+        }
+    </div>
+    <div>
+        The body of the coolest comment of this post is
+        @if (@Model.CoolestComment != null)
+        {
+            string lcid = Convert.ToString(Model.CoolestComment.Id);
+            <strong>@Html.ActionLink(Model.CoolestComment.Body, "Index", "Comment", new { searchId = lcid }, null)</strong>
+        }
+        else
+        {
+            <strong>There is no such comment</strong>
+        }
+    </div>
+
+    if (Model.Checker == true)
+    {
+        <div>
+            The count of comments under the post which has 0 likes or body length < 80
+            <strong>@Model.SpecifiedComment</strong>
+        </div>
+    }
+    else
+    {
+        <div>Post does not fit the condition</div>
+    }
+    <br/>
+    <br />
+    <h2>Try again</h2>
+    <form method="get" asp-controller="Task6Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by post id</label>
+            <input type="text" name="searchId" placeholder="Input post id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else
+{
+    <h2> Error </h2>
+    <div> Please enter the correct data</div>
+    <form method="get" asp-controller="Task6Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by post id</label>
+            <input type="text" name="searchId" placeholder="Input post id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+

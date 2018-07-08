@@ -1,0 +1,60 @@
+﻿@model  List<еуые.Models.Comment>
+@{
+    ViewBag.Title = "Task2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string un = Convert.ToString(ViewBag.UserName);
+    string ui = Convert.ToString(ViewBag.UserId);
+
+}
+
+
+@if (@ViewBag.Check == 0)
+{
+    <h2>Task2</h2>
+    <form method="get" asp-controller="Task2Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by user id</label>
+            <input type="text" name="searchId" placeholder="Input user id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else if (@ViewBag.Check == 1)
+{
+    <h2>Result of the task</h2>
+    <div>The user with id @ViewBag.Index has hame @Html.ActionLink(un, "Index", "User", new { searchId = ui }, null)</div>
+    if (Model.Count != 0)
+    {
+        <ul>
+            @foreach (еуые.Models.Comment c in Model)
+            {
+                string pi = Convert.ToString(c.PostId);
+                <li>Comment with "@c.Body" was left under the  @Html.ActionLink("post", "Index", "Post", new { searchId = pi }, null)</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div>User has not comments under specified condition.</div>
+    }
+    <h2>Try again</h2>
+    <form method="get" asp-controller="Task2Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by user id</label>
+            <input type="text" name="searchId" placeholder="Input user id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else
+{
+    <h2> Error </h2>
+    <div> Please enter the correct data</div>
+    <form method="get" asp-controller="Task2Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by user id</label>
+            <input type="text" name="searchId" placeholder="Input user id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}

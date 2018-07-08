@@ -1,0 +1,66 @@
+﻿
+@model  еуые.Models.Comment
+@{
+    ViewBag.Title = "Comment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string pi = ViewBag.PostId;
+    string un = ViewBag.UserName;
+}
+
+
+@if (@ViewBag.Check == 0)
+{
+    <h2>Comment Catalog</h2>
+    <form method="get" asp-controller="CommentController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the comment info by id</label>
+            <input type="text" name="searchId" placeholder="Input comment id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else if (@ViewBag.Check == 1)
+{
+    <h2>Comment specific information</h2>
+    <div>
+        <table border="1">
+            <tr>
+                <td align="center">Comment id.</td>
+                <td align="center">Comment was left under post with next id.</td>
+                <td align="center">Comment was left by user.</td>
+                <td align="center">Comment has this number of likes.</td>
+            </tr>
+            <tr>
+                <td align="center">@Model.Id</td>
+                <td align="center">@Html.ActionLink(pi, "Index", "Post", new { searchId = @Model.PostId }, null)</td>
+                <td align="center">@Html.ActionLink(un, "Index", "User", new { searchId = @Model.UserId }, null)</td>
+                <td align="center">@Model.Likes</td>
+            </tr>
+            <tr>
+                <td colspan="4" align="center">Comment body</td>
+            </tr>
+            <tr>
+                <td  colspan="4" align="center">@Model.Body</td>
+            </tr>
+        </table>
+    </div>
+    <form method="get" asp-controller="CommentController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the comment info by id</label>
+            <input type="text" name="searchId" placeholder="Input comment id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else
+{
+    <h2>Error</h2>
+    <div>Please enter the correct data</div>
+    <form method="get" asp-controller="CommentController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the comment info by id</label>
+            <input type="text" name="searchId" placeholder="Input comment id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}

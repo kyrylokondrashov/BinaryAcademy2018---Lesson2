@@ -1,0 +1,99 @@
+﻿@model  еуые.Models.StructureForTask5
+@{
+    ViewBag.Title = "Task5";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+@if (@ViewBag.Check == 0)
+{
+    <h2>Task5</h2>
+    <form method="get" asp-controller="Task6Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by user id</label>
+            <input type="text" name="searchId" placeholder="Input user id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else if (@ViewBag.Check == 1)
+{ 
+    <h2>Task Result</h2>
+    string uid = Convert.ToString(@Model.User.Id);
+    <div></div>
+    <div>Click on user name to learn more about him:  @Html.ActionLink(Model.User.Name, "Index", "User", new { searchId = uid }, null)</div>
+    <div>
+        The last post by date. 
+        @if (@Model.LastPost != null)
+        {
+            string lpid = Convert.ToString(Model.LastPost.Id);
+            <strong>@Html.ActionLink(Model.LastPost.Title, "Index", "Post", new { searchId = lpid }, null). Post has @Model.CommentLastPost comments</strong>
+        }
+        else
+        {
+            <strong>There is no such post</strong>
+        }
+    </div>
+
+    <div>
+        Uncompleted todos:
+        @if (@Model.UncompletedTodo != 0)
+        {
+            string lpid = Convert.ToString(Model.LastPost.Id);
+            <strong>@Model.UncompletedTodo elements</strong>
+        }
+        else
+        {
+            <strong>There is no such todos</strong>
+        }
+    </div>
+
+    <div>
+        The most popular post by comments where post body more than 80 characters.
+        @if (@Model.MostCommentPost != null)
+        {
+            string lpid = Convert.ToString(Model.MostCommentPost.Id);
+            <strong>@Html.ActionLink(Model.MostCommentPost.Title, "Index", "Post", new { searchId = lpid }, null). Post has @Model.MostCommentPost.comments.Count comments</strong>
+        }
+        else
+        {
+            <strong>There is no such post.</strong>
+        }
+    </div>
+
+    <div>
+        The most popular post by likes.
+        @if (@Model.MostLikesPost != null)
+        {
+            string lpid = Convert.ToString(Model.MostLikesPost.Id);
+            <strong>@Html.ActionLink(Model.MostLikesPost.Title, "Index", "Post", new { searchId = lpid }, null). Post has @Model.MostLikesPost.comments.Count comments</strong>
+        }
+        else
+        {
+            <strong>There is no such post</strong>
+        }
+    </div>
+    <br />
+    <br />
+    <h2>Try again</h2>
+    <form method="get" asp-controller="Task6Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by post id</label>
+            <input type="text" name="searchId" placeholder="Input post id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else
+{
+    <h2> Error </h2>
+    <div> Please enter the correct data</div>
+    <form method="get" asp-controller="Task6Controller" asp-action="Index">
+        <div>
+            <label for="searchId">Search the task result info by post id</label>
+            <input type="text" name="searchId" placeholder="Input post id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}

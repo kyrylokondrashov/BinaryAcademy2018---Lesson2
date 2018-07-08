@@ -1,0 +1,59 @@
+﻿
+@model  еуые.Models.Adress
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string un = Convert.ToString(ViewBag.UserName);
+}
+
+@if (@ViewBag.Check == 0)
+{
+    <h2>Adress Catalog</h2>
+    <form method="get" asp-controller="AdressController" asp-action="Index">
+        <div>
+        <label for="searchId">Search the adress info by id</label>
+        <input type="text" name="searchId" placeholder="Input adrees id here." title="Id need to be from 1 to 100" />
+        <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else if (@ViewBag.Check == 1)
+{
+    <h2>Adress Informaton</h2>
+    <h3> By adress with this id lives user @Html.ActionLink(un, "Index", "User", new { searchId = @Model.UserId }, null) </h3>
+    <div>
+        <table  border="1">
+            <tr>
+                <td align="center">Country</td>
+                <td align="center">City</td>
+                 <td align="center">Street</td>
+                 <td align="center">Zip</td>
+            </tr>
+            <tr>
+                 <td align="center">@Model.Country</td>
+                 <td align="center">@Model.City</td>
+                 <td align="center">@Model.Street</td>
+                 <td align="center">@Model.Zip</td>
+            </tr>
+        </table>
+    </div>
+    <form method="get" asp-controller="AdressController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the adress info by id</label>
+            <input type="text" name="searchId" placeholder="Input adrees id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
+else
+{
+    <h2>Error</h2>
+    <div>Olease enter correct data</div>
+    <form method="get" asp-controller="AdressController" asp-action="Index">
+        <div>
+            <label for="searchId">Search the adress info by id</label>
+            <input type="text" name="searchId" placeholder="Input adrees id here." title="Id need to be from 1 to 100" />
+            <input type="submit" value="Search">
+        </div>
+    </form>
+}
