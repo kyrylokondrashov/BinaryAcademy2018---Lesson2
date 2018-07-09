@@ -17,14 +17,37 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Homework #2", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
-                </ul>
+            <div class="dropdown navbar-header">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonModel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Models
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonModel">
+                    <ul>
+                       <li>@Html.ActionLink("User Model", "Index", "User", null, new { @class = "dropdown-item" })</li>
+                        <li>@Html.ActionLink("Post Model", "Index", "Post", null, new { @class = "dropdown-item" })</li>
+                        <li> @Html.ActionLink("Comment Model", "Index", "Comment", null, new { @class = "dropdown-item" })</li>
+                        <li>  @Html.ActionLink("Todo Model", "Index", "Todo", null, new { @class = "dropdown-item" })</li>
+                        <li>  @Html.ActionLink("Adress Model", "Index", "Adress", null, new { @class = "dropdown-item" })</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="dropdown navbar-header">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonModel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Tasks
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonModel">
+                    <ul>
+                        <li>@Html.ActionLink("Task 1", "Index", "Task1", null, new { @class = "dropdown-item" })</li>
+                        <li>@Html.ActionLink("Task 2", "Index", "Task2", null, new { @class = "dropdown-item" })</li>
+                        <li> @Html.ActionLink("Task 3", "Index", "Task3", null, new { @class = "dropdown-item" })</li>
+                        <li>  @Html.ActionLink("Task 4", "Index", "Task4", null, new { @class = "dropdown-item" })</li>
+                        <li>  @Html.ActionLink("Task 5", "Index", "Task5", null, new { @class = "dropdown-item" })</li>
+                        <li>  @Html.ActionLink("Task 6", "Index", "Task6", null, new { @class = "dropdown-item" })</li>
+                        <li>  @Html.ActionLink("Creativ task", "Index", "AllUsers", null, new { @class = "dropdown-item" })</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
